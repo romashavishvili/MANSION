@@ -1,0 +1,97 @@
+{
+  "source": "ferrari_laferrari.glb",
+  "optimized": "ferrari_laferrari.glb",
+  "asset": {
+    "author": "SC (https://sketchfab.com/srineshchethiya)",
+    "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
+    "source": "https://sketchfab.com/3d-models/ferrari-laferrari-f75b682bb0de4a14b3b6c1f52862ca48",
+    "title": "Ferrari laferrari",
+    "modifications": "Beyond the Machine 3.0: vertex welding, 16-bit quantization, removal of unused UV sets and invisible helper meshes, re-orientation/levelling. No geometry decimation."
+  },
+  "size": [
+    2.0056,
+    1.0609,
+    4.4843
+  ],
+  "min": [
+    -1.0028,
+    0.0,
+    -2.2421
+  ],
+  "max": [
+    1.0028,
+    1.0609,
+    2.2421
+  ],
+  "headlights": {
+    "px": {
+      "center": [
+        0.7689,
+        0.5842,
+        1.4831
+      ],
+      "min": [
+        0.6774,
+        0.4912,
+        1.2993
+      ],
+      "max": [
+        0.8604,
+        0.6772,
+        1.667
+      ]
+    },
+    "nx": {
+      "center": [
+        -0.7538,
+        0.5809,
+        1.4768
+      ],
+      "min": [
+        -0.8318,
+        0.4881,
+        1.3112
+      ],
+      "max": [
+        -0.6759,
+        0.6737,
+        1.6423
+      ]
+    }
+  },
+  "wheels": {
+    "front_px": {
+      "center": [
+        0.7942,
+        0.3159,
+        1.0974
+      ],
+      "radius": 0.3125
+    },
+    "front_nx": {
+      "center": [
+        -0.7888,
+        0.3125,
+        1.0977
+      ],
+      "radius": 0.3125
+    },
+    "rear_px": {
+      "center": [
+        0.7875,
+        0.3329,
+        -1.4182
+      ],
+      "radius": 0.3296
+    },
+    "rear_nx": {
+      "center": [
+        -0.7822,
+        0.3296,
+        -1.4178
+      ],
+      "radius": 0.3296
+    }
+  },
+  "pitch_correction_deg": -0.6155
+}
