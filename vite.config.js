@@ -5,4 +5,5 @@ export default defineConfig({
   preview: { port: 4173 },
   build: { target: 'es2022', chunkSizeWarningLimit: 1500, sourcemap: false },
   assetsInclude: ['**/*.glb'],
+  base:'/MANSION/',
 });
