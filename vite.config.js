@@ -7,3 +7,8 @@ export default defineConfig({
   assetsInclude: ['**/*.glb'],
   base:'/MANSION/',
 });
+  import { defineConfig } from 'vite'
+
+export default defineConfig({
+  base: '/MANSION/',
+})
