@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en" class="is-locked">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#050506" />
+  <title>MANSION — Luxury Automotive Detailing</title>
+  <meta name="description" content="MANSION — luxury automotive detailing. Paint correction, ceramic coating, paint protection film, exterior and interior detailing, and premium maintenance." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <script type="module" crossorigin src="/assets/index-ViCd8ljE.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-ulImVheS.css">
+</head>
+<body>
+  <canvas id="gl" aria-label="Interactive 3D scene: three automobiles revealed by their headlights" role="img"></canvas>
+
+  <!-- Loader: the only thing visible at first. Real byte-level progress for the first vehicle. -->
+  <div id="loader" role="status" aria-live="polite">
+    <div class="loader-count"><span id="loader-pct">000</span></div>
+    <div class="loader-line"><i id="loader-bar"></i></div>
+    <div class="loader-label" id="loader-label">PREPARING THE DARK</div>
+  </div>
+
+  <!-- Intro captions + title -->
+  <div id="caption" aria-hidden="true">
+    <span id="cap-num"></span><span id="cap-name"></span><span id="cap-tag"></span>
+  </div>
+  <header id="title-wrap">
+    <h1 id="title" aria-label="MANSION"></h1>
+    <p id="subtitle"></p>
+  </header>
+
+  <!-- Background loading indicator (Ferrari / Maybach stream in while the opening plays) -->
+  <div id="bgload" hidden><i id="bgload-bar"></i><span id="bgload-label"></span></div>
+
+  <!-- Minimal controls -->
+  <nav id="ui" aria-label="Controls">
+    <button id="btn-skip" type="button">Skip intro</button>
+    <button id="btn-replay" type="button" hidden>Replay</button>
+    <button id="btn-credits" type="button">Credits</button>
+  </nav>
+  <p id="hint" hidden>DRAG TO ORBIT &nbsp;·&nbsp; SCROLL TO ZOOM</p>
+
+
+  <!-- ===================== MANSION website layer (revealed when the opening hands over) =====================
+       Copy marked DRAFT is placeholder brand voice for client approval. No business facts (address, phone,
+       email, hours, prices, results, testimonials) exist here yet; later stages mark any such gap explicitly. -->
+  <div id="site">
+    <header id="nav" class="nav">
+      <a id="nav-mark" class="nav__mark" href="#hero" aria-label="MANSION, back to the top">Mansion</a>
+      <div class="nav__right">
+        <button id="sound-btn" class="nav__sound" type="button" aria-pressed="false" aria-label="Sound"><span>Sound</span><b>Off</b></button>
+        <button id="menu-btn" class="nav__menu" type="button" aria-expanded="false" aria-controls="menu"><span class="nav__menu-label">Menu</span><i aria-hidden="true"></i></button>
+      </div>
+    </header>
+
+    <nav id="menu" class="menu" aria-label="Sections">
+      <ol id="menu-list" class="menu__list"></ol>
+      <div class="menu__foot">
+        <p>Luxury Automotive Detailing</p>
+        <div>
+          <button id="menu-replay" type="button">Replay opening</button>
+          <button id="menu-credits" type="button">Credits</button>
+        </div>
+      </div>
+    </nav>
+
+    <main id="main">
+      <!-- 01 — Hero. The wordmark is the opening's own title (#title-wrap); this layer adds the editorial foot. -->
+      <section id="hero" class="hero" aria-label="Opening">
+        <div class="hero__pin">
+          <p class="hero__line"><!-- DRAFT COPY -->
+            <span class="ln"><span>The surface</span></span>
+            <span class="ln"><span>is the <em>signature.</em></span></span>
+          </p>
+          <a class="hero__cue" href="#philosophy"><span class="hero__cue-label">Begin</span><i aria-hidden="true"></i></a>
+        </div>
+      </section>
+
+      <!-- 02 — Philosophy -->
+      <section id="philosophy" class="philo" aria-labelledby="philo-h">
+        <div class="philo__pin">
+          <p class="philo__kicker"><span>01</span><b></b>Philosophy</p>
+          <h2 id="philo-h" class="philo__statement"><!-- DRAFT COPY -->
+            <span class="pl pl--big">We do not</span>
+            <span class="pl pl--big">clean cars.</span>
+            <span class="pl pl--mid">We restore the conditions in which</span>
+            <span class="pl pl--mid">a surface tells <span class="truth">the truth.</span></span>
+          </h2>
+          <ol class="philo__tenets"><!-- DRAFT COPY -->
+            <li class="tenet"><i class="tenet__rule"></i><span class="tenet__n">I</span><h3>Restraint</h3><p>We add nothing the car does not already deserve. We remove what hides it.</p></li>
+            <li class="tenet"><i class="tenet__rule"></i><span class="tenet__n">II</span><h3>Precision</h3><p>Every decision is made against the surface in front of us, never against the clock.</p></li>
+            <li class="tenet"><i class="tenet__rule"></i><span class="tenet__n">III</span><h3>Permanence</h3><p>A finish is judged a year from now, not under a showroom lamp.</p></li>
+          </ol>
+          <div class="philo__meter" aria-hidden="true"><i></i></div>
+        </div>
+      </section>
+
+      <!-- 03 — Craftsmanship: three macro shots of the Ferrari. Each caption describes what the camera is looking at. -->
+      <section id="craft" class="craft" aria-labelledby="craft-h">
+        <div class="craft__pin">
+          <p class="craft__kicker"><span>02</span><b></b>Craftsmanship</p>
+          <h2 id="craft-h" class="sr-only">Craftsmanship: the lamp, the line, the wheel</h2>
+          <div class="craft__beats"><!-- DRAFT COPY -->
+            <article class="beat"><p class="beat__n">i / iii</p><h3 class="beat__t">The lamp</h3><p class="beat__p">Lenses haze and micro-scratch long before they fail. Restored, they give back the light the car was designed to throw.</p></article>
+            <article class="beat"><p class="beat__n">ii / iii</p><h3 class="beat__t">The line</h3><p class="beat__p">Paint is read as reflection. A true panel carries one unbroken line of light; swirls and haze break it into noise.</p></article>
+            <article class="beat"><p class="beat__n">iii / iii</p><h3 class="beat__t">The wheel</h3><p class="beat__p">Barrel, face and caliper take the harshest contamination on the car. Cleaned and sealed, they are easier to keep that way.</p></article>
+          </div>
+          <ol class="craft__ticks" aria-hidden="true"><li><i></i></li><li><i></i></li><li><i></i></li></ol>
+        </div>
+      </section>
+
+      <!-- 04 — Surface lab: five services, five presentations. Copy marked DRAFT is placeholder brand voice for client approval; it makes
+           no promise about results, durations, warranties or prices. Interactive 3D here is labelled as illustration in the UI. -->
+      <section id="lab" class="lab" aria-labelledby="lab-h">
+        <div class="lab__pin">
+          <p class="lab__kicker"><span>03</span><b></b>Surface lab</p>
+          <h2 id="lab-h" class="lab__h">Five ways we <em>work the surface.</em></h2>
+          <div class="lab__ui">
+            <div class="lab__tabs" role="tablist" aria-label="Services" aria-orientation="vertical">
+              <button role="tab" id="tab-correct" aria-controls="pan-correct" aria-selected="true" type="button" data-cursor="Open"><i>I</i><span>Paint correction</span></button>
+              <button role="tab" id="tab-ppf" aria-controls="pan-ppf" aria-selected="false" type="button" data-cursor="Open"><i>II</i><span>Paint protection film</span></button>
+              <button role="tab" id="tab-ceramic" aria-controls="pan-ceramic" aria-selected="false" type="button" data-cursor="Open"><i>III</i><span>Ceramic coating</span></button>
+              <button role="tab" id="tab-detail" aria-controls="pan-detail" aria-selected="false" type="button" data-cursor="Open"><i>IV</i><span>Premium detailing</span></button>
+              <button role="tab" id="tab-protect" aria-controls="pan-protect" aria-selected="false" type="button" data-cursor="Open"><i>V</i><span>Surface protection</span></button>
+            </div>
+            <div class="lab__panels">
+              <div role="tabpanel" id="pan-correct" aria-labelledby="tab-correct" class="pan"><!-- DRAFT COPY -->
+                <h3>Paint correction</h3>
+                <p>Swirl marks, haze and fine scratches live in the clear coat and scatter light. Correction levels the surface so a panel reflects as one clean image again.</p>
+                <label class="rng big"><span class="l">Before</span><input id="lab-split" type="range" min="0" max="1" step="0.001" value="0" aria-label="Move the dividing plane along the car from before to after"><span class="r">After</span></label>
+                <p class="note">Illustration: both halves are the same 3D model. The &ldquo;before&rdquo; marks are generated to show the kind of defect correction addresses. It is not a photograph or a measured result.</p>
+                <button class="btn" type="button" data-enquire="Paint correction" data-cursor="Enquire">Enquire about paint correction</button>
+              </div>
+              <div role="tabpanel" id="pan-ppf" aria-labelledby="tab-ppf" class="pan" hidden><!-- DRAFT COPY -->
+                <h3>Paint protection film</h3>
+                <p>A transparent urethane film applied over paint to take stone chips and abrasion that would otherwise reach the clear coat. Coverage is chosen to suit the vehicle and how it is used.</p>
+                <div class="chips" role="group" aria-label="Coverage area">
+                  <button type="button" data-zone="edge" class="on" aria-pressed="true">Leading edge</button>
+                  <button type="button" data-zone="front" aria-pressed="false">Front end</button>
+                  <button type="button" data-zone="full" aria-pressed="false">Full body</button>
+                </div>
+                <p class="note">Illustration: the highlighted band marks an <em>area</em> in the model&rsquo;s own coordinates, not individual panels. Real coverage is agreed per vehicle.</p>
+                <button class="btn" type="button" data-enquire="Paint protection film (PPF)" data-cursor="Enquire">Enquire about PPF</button>
+              </div>
+              <div role="tabpanel" id="pan-ceramic" aria-labelledby="tab-ceramic" class="pan" hidden><!-- DRAFT COPY -->
+                <h3>Ceramic coating</h3>
+                <p>A thin, hard layer bonded to prepared paint. It does not change the shape of a panel; it changes how the surface behaves day to day. Preparation decides how good it looks.</p>
+                <label class="rng big"><span class="l">Rear</span><input id="lab-light" type="range" min="0" max="1" step="0.001" value="0.5" aria-label="Move the light along the car"><span class="r">Front</span></label>
+                <p class="note">This light is how any finish is read: the reflection should travel the panel unbroken. It is an inspection aid, not a before/after of a coating.</p>
+                <button class="btn" type="button" data-enquire="Ceramic coating" data-cursor="Enquire">Enquire about ceramic coating</button>
+              </div>
+              <div role="tabpanel" id="pan-detail" aria-labelledby="tab-detail" class="pan" hidden><!-- DRAFT COPY -->
+                <h3>Premium detailing</h3>
+                <p>A complete, unhurried restoration of a vehicle&rsquo;s presentation, inside and out. The order matters more than any single product.</p>
+                <div class="stepper"><div class="step"><b>Inspect</b> Walk the car under a controlled light and record what is really there.</div>
+                  <div class="step" hidden><b>Decontaminate</b> Wash and remove bonded contamination so nothing is dragged across the paint later.</div>
+                  <div class="step" hidden><b>Correct</b> Only where the paint needs it, and only as far as it needs.</div>
+                  <div class="step" hidden><b>Protect</b> Seal the finished surface with the protection that suits the car and its owner.</div>
+                  <div class="step" hidden><b>Review</b> A final inspection, in light, with the owner.</div>
+                  <div class="stepper__nav"><button type="button" data-step="prev" aria-label="Previous step">&larr;</button><span class="stepper__n">1 / 5</span><button type="button" data-step="next" aria-label="Next step">&rarr;</button></div></div>
+                <button class="btn" type="button" data-enquire="Premium detailing" data-cursor="Enquire">Enquire about detailing</button>
+              </div>
+              <div role="tabpanel" id="pan-protect" aria-labelledby="tab-protect" class="pan" hidden><!-- DRAFT COPY -->
+                <h3>Surface protection</h3>
+                <p>Protection works in layers. Hover or focus a layer to see what it is for.</p>
+                <div class="stack" role="list">
+                  <button type="button" class="layer" role="listitem" data-t="Protection" data-d="Film, coating or sealant: the sacrificial layer that takes the day-to-day wear.">Protection</button>
+                  <button type="button" class="layer" role="listitem" data-t="Clear coat" data-d="The factory gloss layer. It is what correction works on, and it is finite: it is only ever polished as far as necessary.">Clear coat</button>
+                  <button type="button" class="layer" role="listitem" data-t="Base coat" data-d="The colour. It is protected, never touched, by good work.">Base coat</button>
+                  <button type="button" class="layer" role="listitem" data-t="Primer and panel" data-d="The foundation the paint system is built on.">Primer &amp; panel</button>
+                </div>
+                <p class="layer-out" aria-live="polite"></p>
+                <p class="note">Illustrative diagram, not to scale; layer thicknesses are not shown.</p>
+                <button class="btn" type="button" data-enquire="Surface protection" data-cursor="Enquire">Enquire about protection</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 05 — The rooms: one per vehicle (src/exhibit/). -->
+      <section id="rooms" class="rooms" aria-labelledby="rooms-h">
+        <div class="rooms__pin">
+          <p class="rooms__kicker"><span>04</span><b></b>The rooms</p>
+          <h2 id="rooms-h" class="sr-only">Three rooms: Precision, Sculpture, Exclusivity</h2>
+          <ol class="rooms__list"><!-- DRAFT COPY -->
+            <li class="ri" data-car="bmw"><button type="button" data-cursor="Enter"><span class="ri__n">I</span><span class="ri__t">Precision</span><span class="ri__m">BMW M5 <i>paint, light &amp; detail inspection</i></span><span class="ri__go">Enter the room</span></button></li>
+            <li class="ri" data-car="ferrari"><button type="button" data-cursor="Enter"><span class="ri__n">II</span><span class="ri__t">Sculpture</span><span class="ri__m">Ferrari LaFerrari <i>a cinematic exhibition</i></span><span class="ri__go">Enter the room</span></button></li>
+            <li class="ri" data-car="maybach"><button type="button" data-cursor="Enter"><span class="ri__n">III</span><span class="ri__t">Exclusivity</span><span class="ri__m">Mercedes-Maybach <i>quiet stations &amp; evening light</i></span><span class="ri__go">Enter the room</span></button></li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- 06 — Enquire. No contact details exist yet: see CONTACT in src/config.js. -->
+      <section id="enquire" class="enq" aria-labelledby="enq-h">
+        <div class="enq__pin">
+          <p class="enq__kicker"><span>05</span><b></b>Enquire</p>
+          <h2 id="enq-h" class="enq__h">Bring us <em>the surface.</em></h2>
+          <div class="enq__form">
+            <form novalidate>
+              <label>Name<input name="name" autocomplete="name" aria-describedby="e-name"><small id="e-name" data-err="name"></small></label>
+              <label>Email or phone<input name="contact" autocomplete="email" aria-describedby="e-contact"><small id="e-contact" data-err="contact"></small></label>
+              <label>Vehicle<input name="vehicle" placeholder="Make, model, year" aria-describedby="e-vehicle"><small id="e-vehicle" data-err="vehicle"></small></label>
+              <label>Service<select name="service"></select></label>
+              <label>Anything we should know<textarea name="message" rows="2"></textarea></label>
+              <button class="btn btn--solid" type="submit" data-cursor="Prepare">Prepare my enquiry</button>
+            </form>
+            <div class="enq__out" hidden aria-live="polite"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Vehicle rooms (filled by src/exhibit/) and the transition veil -->
+  <div id="exhibit" hidden></div>
+  <div id="veil" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><p id="veil-label"></p></div>
+
+  <section id="credits" hidden role="dialog" aria-modal="true" aria-labelledby="credits-title">
+    <div class="credits-inner">
+      <button id="credits-close" type="button" aria-label="Close credits">Close</button>
+      <h2 id="credits-title">Model credits</h2>
+      <ul>
+        <li><strong>2025 BMW M5 Sedan</strong> by <a href="https://sketchfab.com/3d-models/2025-bmw-m5-sedan-4ab34c43bada482b8e467be97ebaeba3" target="_blank" rel="noopener">Ddiaz Design</a> — licensed <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> (non-commercial, share-alike).</li>
+        <li><strong>Ferrari LaFerrari</strong> by <a href="https://sketchfab.com/srineshchethiya" target="_blank" rel="noopener">SC</a> (<a href="https://sketchfab.com/3d-models/ferrari-laferrari-f75b682bb0de4a14b3b6c1f52862ca48" target="_blank" rel="noopener">source</a>) — licensed <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>.</li>
+        <li><strong>Mercedes-Benz Maybach 2022</strong> by <a href="https://sketchfab.com/mpgs.studio" target="_blank" rel="noopener">Mpgs Studios</a> (<a href="https://sketchfab.com/3d-models/mercedes-benz-maybach-2022-979f37a878f04b2a8d888b62ea6027e9" target="_blank" rel="noopener">source</a>) — licensed <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>.</li>
+      </ul>
+      <p class="credits-note">Changes made: models were re-oriented and levelled, vertex-welded and quantized to 16-bit, with unused UV sets and invisible helper meshes removed (no geometry decimation). Paint, glass and lamp materials were re-graded in code. The BMW file additionally had its engine removed before this project. Trademarks belong to their owners. Development build: these vehicle models are placeholders pending commercial licensing and will be replaced before launch.</p>
+    </div>
+  </section>
+
+  <aside id="fallback" hidden>
+    <h2>WebGL 2 is required</h2>
+    <p>This experience needs a browser with WebGL 2 and hardware acceleration enabled. Try the latest Chrome, Edge, Firefox or Safari.</p>
+  </aside>
+
+  <aside id="debug" hidden></aside>
+
+</body>
+</html>

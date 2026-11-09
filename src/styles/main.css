@@ -1,0 +1,123 @@
+:root {
+  /* MANSION identity: black / charcoal / silver, with one restrained red. */
+  --ink: #eceae5;
+  --dim: rgba(236, 234, 229, 0.58);
+  --faint: rgba(236, 234, 229, 0.3);
+  --black: #050506;
+  --charcoal: #0d0e11;
+  --silver: #c5c8ce;
+  --red: #c4121a;
+  --display: 'Jost', 'Helvetica Neue', 'Inter', system-ui, sans-serif;           /* wordmark, labels, UI */
+  --serif: 'Instrument Serif', 'Cormorant Garamond', 'Times New Roman', serif;  /* editorial statements */
+  --sans: 'Jost', 'Helvetica Neue', 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { background: var(--black); color: var(--ink); -webkit-font-smoothing: antialiased; scrollbar-width: none; }
+html::-webkit-scrollbar { display: none; }
+body { font-family: var(--sans); background: var(--black); overflow-x: clip; }
+/* the opening plays on a locked page; Site.handoff() removes .is-locked and the page scrolls */
+html.is-locked, html.is-locked body { height: 100%; overflow: hidden; }
+canvas#gl { position: fixed; inset: 0; width: 100vw; height: 100vh; display: block; outline: none; touch-action: pan-y; z-index: 0; }
+[hidden] { display: none !important; }
+
+/* ---------- loader ---------- */
+#loader {
+  position: fixed; inset: 0; z-index: 50; background: #000;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px;
+  transition: opacity 1.4s ease 0.1s, visibility 0s linear 1.6s;
+}
+#loader.done { opacity: 0; visibility: hidden; pointer-events: none; }
+.loader-count { font-family: var(--display); font-weight: 300; font-size: clamp(54px, 9vw, 120px); letter-spacing: 0.08em; color: var(--ink); opacity: 0.92; font-variant-numeric: tabular-nums; }
+.loader-line { width: min(320px, 56vw); height: 1px; background: rgba(255, 255, 255, 0.12); overflow: hidden; }
+.loader-line i { display: block; height: 100%; width: 100%; background: var(--ink); transform: scaleX(0); transform-origin: 0 50%; }
+.loader-label { font-size: 10px; letter-spacing: 0.42em; color: var(--faint); text-transform: uppercase; }
+
+/* ---------- caption (bottom-left) ---------- */
+#caption {
+  position: fixed; left: clamp(20px, 3.2vw, 56px); bottom: clamp(22px, 4vh, 54px); z-index: 10; pointer-events: none;
+  display: flex; align-items: baseline; gap: 18px; opacity: 0; transform: translateY(8px);
+  transition: opacity 1.2s var(--ease), transform 1.2s var(--ease);
+}
+#caption.on { opacity: 1; transform: none; }
+#cap-num { font-family: var(--display); font-weight: 300; font-size: 14px; letter-spacing: 0.2em; color: var(--faint); }
+#cap-name { font-family: var(--display); font-weight: 400; font-size: clamp(18px, 1.9vw, 28px); letter-spacing: 0.18em; text-transform: uppercase; }
+#cap-tag { font-size: 10px; letter-spacing: 0.4em; color: var(--dim); text-transform: uppercase; }
+
+/* ---------- title ---------- */
+#title-wrap {
+  position: fixed; left: 0; right: 0; top: clamp(60px, 15vh, 190px); z-index: 10; pointer-events: none; text-align: center; padding: 0 4vw;
+}
+#title {
+  font-family: var(--display); font-weight: 300; text-transform: uppercase; line-height: 0.9;
+  font-size: clamp(44px, 11.6vw, 220px); letter-spacing: 0.3em; margin-right: -0.3em; white-space: nowrap;
+  transition: letter-spacing 4.2s var(--ease), margin 4.2s var(--ease);
+  text-shadow: 0 0 60px rgba(0, 0, 0, 0.6);
+}
+#title.on { letter-spacing: 0.12em; margin-right: -0.12em; }
+#title .w { display: inline-block; white-space: nowrap; }
+#title .c {
+  display: inline-block; opacity: 0; transform: translateY(0.28em); filter: blur(16px);
+  transition: opacity 1.6s var(--ease), transform 1.8s var(--ease), filter 1.6s var(--ease);
+  transition-delay: calc(var(--i) * 55ms);
+}
+#title.on .c { opacity: 1; transform: none; filter: blur(0); }
+#title .sp { display: inline-block; width: 0.28em; }
+#subtitle {
+  margin-top: clamp(14px, 2.4vh, 30px); font-weight: 400; font-size: clamp(9px, 0.95vw, 14px); letter-spacing: 0.6em; margin-right: -0.6em; color: var(--silver);
+  opacity: 0; transform: translateY(10px); transition: opacity 2.4s var(--ease), transform 2.4s var(--ease);
+}
+#subtitle.on { opacity: 0.9; transform: none; }
+
+/* when the sequence is (re)started the title must disappear promptly, not slowly "un-animate" */
+#title:not(.on), #title:not(.on) .c, #subtitle:not(.on) { transition-duration: 0.35s !important; transition-delay: 0s !important; }
+
+/* ---------- background loading ---------- */
+#bgload { position: fixed; left: clamp(20px, 3.2vw, 56px); top: clamp(18px, 3vh, 40px); z-index: 10; display: flex; align-items: center; gap: 12px; pointer-events: none; }
+#bgload i { display: block; width: 90px; height: 1px; background: var(--ink); transform-origin: 0 50%; transform: scaleX(0); opacity: 0.6; }
+#bgload span { font-size: 9px; letter-spacing: 0.34em; color: var(--faint); text-transform: uppercase; }
+
+/* ---------- controls ---------- */
+#ui { position: fixed; right: clamp(18px, 3vw, 48px); bottom: clamp(20px, 3.6vh, 48px); z-index: 20; display: flex; gap: 26px; }
+#ui button, #credits-close {
+  appearance: none; background: none; border: 0; color: var(--dim); font: 500 10px/1 var(--sans); letter-spacing: 0.3em; text-transform: uppercase;
+  padding: 10px 2px; cursor: pointer; position: relative; transition: color 0.4s;
+}
+#ui button::after, #credits-close::after { content: ''; position: absolute; left: 0; right: 0; bottom: 4px; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: 0 50%; transition: transform 0.5s var(--ease); }
+#ui button:hover, #credits-close:hover, #ui button:focus-visible { color: var(--ink); }
+#ui button:hover::after, #credits-close:hover::after, #ui button:focus-visible::after { transform: scaleX(1); }
+#ui button:focus-visible, #credits-close:focus-visible { outline: 1px solid var(--faint); outline-offset: 4px; }
+#hint { position: fixed; left: 50%; bottom: clamp(22px, 4vh, 54px); transform: translateX(-50%); z-index: 10; font-size: 9px; letter-spacing: 0.4em; color: var(--faint); pointer-events: none; animation: hintIn 2s var(--ease) 0.4s both; }
+@keyframes hintIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* ---------- credits ---------- */
+#credits { position: fixed; inset: 0; z-index: 60; background: rgba(0, 0, 0, 0.86); backdrop-filter: blur(8px); display: grid; place-items: center; padding: 24px; }
+.credits-inner { max-width: 660px; width: 100%; max-height: 90vh; overflow: auto; }
+#credits h2 { font-family: var(--display); font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; font-size: 22px; margin: 28px 0 22px; }
+#credits ul { list-style: none; display: grid; gap: 16px; }
+#credits li { font-size: 14px; line-height: 1.6; color: #d8d6d0; }
+#credits a { color: var(--ink); text-decoration-color: var(--faint); text-underline-offset: 3px; }
+.credits-note { margin-top: 24px; font-size: 12px; line-height: 1.7; color: var(--dim); }
+#credits-close { float: right; }
+
+/* ---------- fallback + debug ---------- */
+#fallback { position: fixed; inset: 0; z-index: 90; background: #000; display: grid; place-content: center; text-align: center; padding: 30px; gap: 12px; }
+#fallback h2 { font-family: var(--display); letter-spacing: 0.3em; text-transform: uppercase; font-weight: 600; }
+#fallback p { color: var(--dim); max-width: 460px; line-height: 1.7; font-size: 14px; }
+#debug { position: fixed; top: 10px; right: 10px; z-index: 80; width: 270px; padding: 12px; background: rgba(8, 8, 10, 0.82); border: 1px solid rgba(255,255,255,0.1); font: 11px/1.5 ui-monospace, Menlo, Consolas, monospace; color: #cfd0d4; backdrop-filter: blur(6px); }
+#debug label { display: grid; grid-template-columns: 96px 1fr 38px; align-items: center; gap: 6px; margin: 3px 0; }
+#debug input[type=range] { width: 100%; }
+#debug .row { display: flex; gap: 6px; margin: 6px 0; flex-wrap: wrap; }
+#debug button { background: #1c1c20; color: #ddd; border: 1px solid #333; padding: 3px 8px; font: inherit; cursor: pointer; }
+#debug pre { white-space: pre-wrap; color: #8f9199; margin-top: 6px; }
+
+@media (prefers-reduced-motion: reduce) {
+  #title, #title .c, #subtitle, #caption { transition-duration: 0.01s !important; transition-delay: 0s !important; }
+}
+@media (max-width: 640px) {
+  #ui { gap: 16px; right: 14px; }
+  #title { font-size: 15.2vw; letter-spacing: 0.24em; margin-right: -0.24em; white-space: normal; }
+  #title.on { letter-spacing: 0.1em; margin-right: -0.1em; }
+  #subtitle { letter-spacing: 0.34em; margin-right: -0.34em; }
+  #cap-tag { display: none; }
+}
