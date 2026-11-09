@@ -1,0 +1,96 @@
+{
+  "source": "bmw_m5_2025.src.glb",
+  "optimized": "bmw_m5_2025.glb",
+  "asset": {
+    "title": "2025 BMW M5 Sedan",
+    "author": "Ddiaz Design",
+    "license": "CC-BY-NC-SA-4.0",
+    "source": "https://sketchfab.com/3d-models/2025-bmw-m5-sedan-4ab34c43bada482b8e467be97ebaeba3"
+  },
+  "size": [
+    2.1618,
+    1.5302,
+    5.0921
+  ],
+  "min": [
+    -1.0809,
+    -0.0005,
+    -2.5575
+  ],
+  "max": [
+    1.0809,
+    1.5298,
+    2.5345
+  ],
+  "headlights": {
+    "px": {
+      "center": [
+        0.6898,
+        0.7415,
+        2.1309
+      ],
+      "min": [
+        0.4956,
+        0.6181,
+        1.8734
+      ],
+      "max": [
+        0.8841,
+        0.8649,
+        2.3883
+      ]
+    },
+    "nx": {
+      "center": [
+        -0.6898,
+        0.7415,
+        2.1309
+      ],
+      "min": [
+        -0.8841,
+        0.6181,
+        1.8734
+      ],
+      "max": [
+        -0.4956,
+        0.8649,
+        2.3883
+      ]
+    }
+  },
+  "wheels": {
+    "front_px": {
+      "center": [
+        0.8397,
+        0.3686,
+        1.6039
+      ],
+      "radius": 0.3691
+    },
+    "front_nx": {
+      "center": [
+        -0.8397,
+        0.3686,
+        1.6041
+      ],
+      "radius": 0.3691
+    },
+    "rear_px": {
+      "center": [
+        0.8246,
+        0.3731,
+        -1.403
+      ],
+      "radius": 0.3705
+    },
+    "rear_nx": {
+      "center": [
+        -0.8246,
+        0.3731,
+        -1.403
+      ],
+      "radius": 0.3705
+    }
+  },
+  "pitch_correction_deg": 0.0
+}
